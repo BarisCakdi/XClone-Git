@@ -1,0 +1,55 @@
+﻿@model PostModel
+
+<div class="max-w-xl mx-auto mt-8 bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-semibold mb-4">Yorumlar</h2>
+    @if (Model.Comments != null && Model.Comments.Any())
+    {
+        <ul class="space-y-4">
+            @foreach (var comment in Model.Comments)
+            {
+                <li class="bg-gray-100 p-4 rounded-lg">
+                    <div class="flex items-center">
+                        <a href="/profile/@comment.UserName">
+                            <img class="w-12 h-12 rounded-full" src="/uploads/@comment.ImgPath" alt="Profile Photo">
+                        </a>
+                    </div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-700 font-semibold">@comment.UserName</span>
+                    </div>
+                    <p class="text-gray-800">@comment.Comment</p>
+                    <span class="text-gray-500 text-sm">@comment.CreatedDate.ToString("dd.MM.yyyy HH:mm")</span>
+
+                    @if (ViewBag.yetki == "Full")
+                    {
+                        <a href="/YorumSil/@comment.Id" onclick="return confirm('Emin misin?')" class="btn btn-danger">Sil</a>
+                    }
+                    else if (ViewBag.LogName == comment.UserName)
+                    {
+                        <a href="/YorumSil/@comment.Id" onclick="return confirm('Emin misin?')" class="btn btn-danger">Sil</a>
+                    }
+
+                </li>
+            }
+        </ul>
+
+
+    }
+    else
+    {
+        <p class="text-gray-600">Henüz yorum yapılmamış.</p>
+    }
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">Yorum Ekle</h2>
+    <form action="/yorumekle" method="post" autocomplete="off">
+        <div class="mb-4">
+           
+        </div>
+        <div class="mb-4">
+            <textarea required name="Comment" placeholder="Yorum" class="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"></textarea>
+        </div>
+        <input type="hidden" name="PostId" value="@Model.Post.Id" />
+        <div class="text-right">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Gönder</button>
+        </div>
+    </form>
+</div>

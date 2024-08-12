@@ -1,0 +1,55 @@
+﻿@model User
+@{
+    ViewData["Title"] = "Profil Düzenle";
+}
+
+@if (ViewBag.user != null)
+{
+    <div class="alert alert-danger mb-3" role="alert">
+        @ViewBag.user
+    </div>
+}
+
+<div class="flex justify-between space-x-4">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6">İsim Güncelle</h2>
+        <form id="updateForm" action="/UserEdit/@Model.Id" method="post" autocomplete="off">
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 font-semibold mb-2">Yeni İsim</label>
+                <input required type="text" id="name" name="username" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            </div>
+            <input type="hidden" name="UserName" value="@Model.UserName" />
+            <div class="flex items-center justify-between">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Güncelle</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6">Şifre Güncelle</h2>
+        <form id="updateForm" action="/passedit/@Model.Id" method="post" autocomplete="off">
+            <div class="mb-4">
+                <label for="password" class="block text-gray-700 font-semibold mb-2">Yeni Şifre</label>
+                <input required type="password" id="Password" name="Password" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            </div>
+            <input type="hidden" name="UserName" value="@Model.UserName" />
+            <div class="flex items-center justify-between">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Güncelle</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6">Profil Fotoğrafı Güncelle</h2>
+        <form id="updateForm" action="/FotoEdit/@Model.Id" method="post" enctype="multipart/form-data" autocomplete="off">
+            <div class="mb-6">
+                <label for="photo" class="block text-gray-700 font-semibold mb-2">Fotoğraf</label>
+                <input required type="file" id="photo" name="Img" accept="img/png, img/jpeg" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            </div>
+            <input type="hidden" name="UserName" value="@Model.UserName" />
+            <div class="flex items-center justify-between">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Güncelle</button>
+            </div>
+        </form>
+    </div>
+</div>

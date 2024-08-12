@@ -1,0 +1,39 @@
+﻿@model PostModel
+@if (ViewBag.SuccessMessage != null)
+{
+    <div class="alert alert-success">
+        @ViewBag.SuccessMessage
+    </div>
+}
+@if (ViewBag.mesaj != null)
+{
+    <div class="alert alert-danger mb-3" role="alert">
+        @ViewBag.mesaj
+    </div>
+}
+
+<div class="max-w-xl mx-auto mt-10">
+    <div class="bg-white p-4 rounded-lg shadow-md">
+        <div class="flex items-start">
+            <a href="/profile/@Model.Post.UserName"><img class="w-12 h-12 rounded-full" src="/uploads/@Model.Post.ImgPath" alt="Profile Photo"></a>
+            <div class="ml-4">
+                <div class="flex items-center">
+                    <a href="/profile/@Model.Post.UserName"> <h2 class="font-bold text-lg">@Model.Post.UserName</h2></a>
+                </div>
+                <a href="/detay/@Model.Post.Id">
+                <a href="/detay/@Model.Post.Id"><img class="mt-2 rounded-lg" src="/uploads/@Model.Post.TwtImg" alt=""></a>
+                    <p class="mt-2 text-gray-800">@Model.Post.Summary</p>
+                </a>
+                <div class="text-gray-500 text-sm mt-2">@Model.Post.CreatedDate.ToString("dddd dd.yy HH:mm")</div>
+                <div class="heart-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    @if (ViewBag.Yorum)
+    {
+    @Html.Partial("Partials/_Comment", Model)
+    }
+</div>
+

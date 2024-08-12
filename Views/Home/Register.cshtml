@@ -1,0 +1,22 @@
+﻿@model User
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger mb-3" role="alert">
+        @ViewBag.ErrorMessage
+    </div>
+}
+@if (ViewBag.SuccessMessage != null)
+{
+    <div class="alert alert-success">
+        @ViewBag.SuccessMessage
+    </div>
+}
+
+<form method="post" action="/kayit" autocomplete="off" >
+    <p><input type="text" name="UserName" placeholder="Ad Soyad" value="@Model.UserName" /></p>
+    <p><input type="email" name="Email" placeholder="E-Posta Adresi" value="@Model.Email" /></p>
+    <p><input type="password" name="Password" placeholder="Şifre" value="@Model.Password" /></p>
+    <p><input type="password" name="PasswordRepeat" placeholder="Şifre Tekrar" value="@Model.PasswordRepeat" /></p>
+    <button type="submit">Kayıt Ol</button>
+</form>

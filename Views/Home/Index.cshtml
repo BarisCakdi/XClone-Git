@@ -1,0 +1,109 @@
+﻿@model List<Post>
+
+@if (ViewData["username"] != null)
+{
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card text-bg-dark border-0">
+                    <img src="~/uploads/download.jpeg" class="card-img-top img-fluid" alt="Hoş Geldiniz Görseli" style="height: 300px; object-fit: cover;">
+                    <div class="card-img-overlay d-flex flex-column justify-content-center text-center">
+                        <div class="bg-dark bg-opacity-50 p-4 rounded">
+                            <p class="card-text text-white">Xclone'a hoş geldiniz. Hemen yeni bir gönderi oluşturun!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4">
+            <div class="col-lg-6">
+                <div class="card p-4 shadow-sm">
+                    <form method="post" action="/haberekle" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <input type="text" id="summaryInput" class="form-control" name="Summary" placeholder="Neler oluyor?" onkeyup="toggleButton()" required />
+                        </div>
+                        <div class="mb-3">
+                            <input type="file" class="form-control" name="Img" accept="image/png, image/jpeg" />
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <button type="submit" id="submitButton" class="btn btn-primary btn-sm" disabled style="opacity: 0.5;">Gönder</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    function toggleButton() {
+        var inputField = document.getElementById("summaryInput");
+        var submitButton = document.getElementById("submitButton");
+
+        if (inputField.value.trim() === "") {
+            submitButton.disabled = true;
+            submitButton.style.opacity = "0.5";
+        } else {
+            submitButton.disabled = false;
+            submitButton.style.opacity = "1";
+        }
+    }
+</script>
+
+
+
+
+
+
+@foreach (var twt in Model)
+{
+<div class="max-w-xl mx-auto mt-10">
+        <div class="bg-white p-4 rounded-lg shadow-md">
+            <div class="flex items-start">
+                <a href="/profile/@twt.UserName"><img class="w-12 h-12 rounded-full" src="/uploads/@twt.ImgPath" alt=""></a>
+                <div class="ml-4">
+                    <div class="flex items-center">
+                        <a href="/profile/@twt.UserName"> <h2 class="font-bold text-lg">@twt.UserName</h2></a>
+                    </div>
+                    <a href="/detay/@twt.Id">
+                        <p class="mt-2 text-gray-800">@twt.Summary</p></a>
+                    <a href="/detay/@twt.Id"><img class="mt-2 rounded-lg" src="/uploads/@twt.TwtImg" alt=""></a>
+                    <div class="text-gray-500 text-sm mt-2">@twt.CreatedDate.ToString("dddd dd.yy HH:mm")</div>
+                    <div class="heart-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+}
+
+    <script defer>
+        function toggleCommentInput() {
+            const commentInput = document.getElementById('comment-input');
+            commentInput.classList.toggle('hidden');
+        }
+    </script>
+    <script defer>
+        function toggleCommentInput() {
+            const commentInput = document.querySelector('#comment-input');
+            commentInput.classList.toggle('hidden');
+        }
+
+        function handleLikeButtonClick() {
+            const heartContainer = document.querySelector('.heart-container');
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heartContainer.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 1000);
+        }
+
+        function handleFollowButtonClick(button) {
+            button.innerHTML = 'Takip Edildi';
+            button.disabled = true;
+        }
+    </script>
+
