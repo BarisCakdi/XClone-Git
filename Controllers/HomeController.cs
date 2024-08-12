@@ -12,6 +12,7 @@ namespace XClone.Controllers
 {
     public class HomeController : Controller
     {
+        string connectionString = "";
         public bool CheckLogin()
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("username")))
